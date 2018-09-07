@@ -5,7 +5,23 @@ class BinarySearchTree:
     self.right = None
 
   def depth_first_for_each(self, cb):
-    pass    
+
+    queue = []
+    while self:
+      cb(self.value)
+
+      if self.right is not None:
+        queue.append(self.right)
+    
+      self = self.left
+
+
+    for index in range(len(queue) -1, -1, -1):
+      queue[index].depth_first_for_each(cb)
+            
+  
+    
+
 
   def breadth_first_for_each(self, cb):
     pass
@@ -44,3 +60,13 @@ class BinarySearchTree:
         max_value = current.value
       current = current.right
     return max_value
+
+if __name__ == '__main__':
+  bst = BinarySearchTree(5)
+  bst.insert(2)
+  bst.insert(3)
+  bst.insert(7)
+  bst.insert(9)
+  arr = []
+  bst.depth_first_for_each(lambda x: arr.append(x))
+  print(arr)
